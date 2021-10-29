@@ -41,7 +41,7 @@ if (params.help) {
  params.multiqc_config = "$baseDir/multiqc_config.yml" //in case ncct multiqc config needed
  params.load_threads = usable_cores
  params.proc_threads = usable_cores
- params.barcode_mismatches = 1 // default of bcl2fastq. Allows 0,1,2, so set limits also here
+ params.barcode_mismatches = 0 // default of bcl2fastq. Allows 0,1,2, so set limits also here
  params.scratch = false // used in special cases, stages the bcl process in a local dir
  if (nsamples >= usable_cores) {
      params.write_threads = usable_cores
