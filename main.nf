@@ -168,7 +168,7 @@ process bcl {
     """
     bcl2fastq -R $x \
     -o fastq \
-    --sample-sheet $y 
+--sample-sheet $y \
     --barcode-mismatches 0 \
     --minimum-trimmed-read-length 8 \
     --mask-short-adapter-reads 8 \
