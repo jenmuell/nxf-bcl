@@ -160,6 +160,7 @@ process bcl {
     output:
         path 'fastq/Stats/Stats.json' into bcl_ch
         path 'fastq/**fastq.gz' // ** is for recursive match, directories are omitted (the fastq files might be in fastq/someproject/...)
+        path 'bcl_out.log'
     
     // default to --ignore-missing all?
     script:
@@ -174,7 +175,7 @@ process bcl {
     --use-bases-mask "y*,i6y*,y*" \
     -r ${params.load_threads} \
     -p ${params.proc_threads} \
-    -w ${params.write_threads} 
+    -w ${params.write_threads} >bcl_out.log 2>&1
     """
 }
 
