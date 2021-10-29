@@ -41,7 +41,7 @@ if (params.help) {
  params.multiqc_config = "$baseDir/multiqc_config.yml" //in case ncct multiqc config needed
  params.load_threads = usable_cores
  params.proc_threads = usable_cores
- params.barcode_mismatches = 0 // default of bcl2fastq. Allows 0,1,2, so set limits also here
+ params.barcode_mismatches = 1 // default of bcl2fastq. Allows 0,1,2, so set limits also here
  params.scratch = false // used in special cases, stages the bcl process in a local dir
  if (nsamples >= usable_cores) {
      params.write_threads = usable_cores
@@ -160,7 +160,6 @@ process bcl {
     output:
         path 'fastq/Stats/Stats.json' into bcl_ch
         path 'fastq/**fastq.gz' // ** is for recursive match, directories are omitted (the fastq files might be in fastq/someproject/...)
-        path 'bcl_out.log'
     
     // default to --ignore-missing all?
     script:
@@ -168,14 +167,14 @@ process bcl {
     """
     bcl2fastq -R $x \
     -o fastq \
---sample-sheet $y \
+    --sample-sheet $y \
     --barcode-mismatches 0 \
     --minimum-trimmed-read-length 8 \
     --mask-short-adapter-reads 8 \
     --use-bases-mask "y*,i6y*,y*"
     -r ${params.load_threads} \
     -p ${params.proc_threads} \
-    -w ${params.write_threads} >bcl_out.log 2>&1
+    -w ${params.write_threads} 
     """
 }
 
