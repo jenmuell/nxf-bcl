@@ -171,7 +171,7 @@ process bcl {
     --barcode-mismatches 0 \
     --minimum-trimmed-read-length 8 \
     --mask-short-adapter-reads 8 \
-    --use-bases-mask "y*,i6y*,y*"
+    --use-bases-mask "y*,i6y*,y*" \
     -r ${params.load_threads} \
     -p ${params.proc_threads} \
     -w ${params.write_threads} 
