@@ -170,8 +170,8 @@ process bcl {
     -o fastq \
     --sample-sheet $y \
     --barcode-mismatches ${params.barcode_mismatches} \
-    --minimum-trimmed-read-length 8 \
-    --mask-short-adapter-reads 8 \
+    --minimum-trimmed-read-length 14 \
+    --mask-short-adapter-reads 14 \
     --use-bases-mask "y*,i6y*,y*" \
     -r ${params.load_threads} \
     -p ${params.proc_threads} \
