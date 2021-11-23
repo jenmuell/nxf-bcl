@@ -168,11 +168,15 @@ process bcl {
     """
     bcl2fastq -R $x \
     -o fastq \
+<<<<<<< HEAD
     --sample-sheet $y 
+=======
+    --sample-sheet $y \
+>>>>>>> 50dfce2bddf7458820aa12de36733225567079f9
     --barcode-mismatches ${params.barcode_mismatches} \
     --minimum-trimmed-read-length 8 \
     --mask-short-adapter-reads 8 \
-    --use-bases-mask "y*,i6y*,y*"
+    --use-bases-mask "y*,i6y*,y*" \
     -r ${params.load_threads} \
     -p ${params.proc_threads} \
     -w ${params.write_threads} >bcl_out.log 2>&1
