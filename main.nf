@@ -170,6 +170,7 @@ process bcl {
     -o fastq \
     --sample-sheet $y \
     --barcode-mismatches ${params.barcode_mismatches} \
+    --ignore-missing-bcls \
     --minimum-trimmed-read-length 8 \
     --mask-short-adapter-reads 8 \
     --use-bases-mask "y*,i6y*,y*" \
