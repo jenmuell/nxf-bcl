@@ -24,6 +24,7 @@ if (params.help) {
 
  params.runfolder   = ""
  params.samplesheet = "${params.runfolder}/SampleSheet.csv"
+ params.bcl2fastqParams = '--no-lane-splitting --ignore-missing-bcls'
  
  // find number of samples in order to dynamically set write_threads, must NOT be higher than number of samples
  def sample_index = file(params.samplesheet)
@@ -67,6 +68,7 @@ log.info """
          --proc_threads         : ${params.proc_threads}
          --write_threads        : ${params.write_threads}
          --barcode_mismatches   : ${params.barcode_mismatches}
+         --bcl2fastqParams      : ${params.bcl2fastqParams}
 
          Runtime data:
         -------------------------------------------
@@ -122,6 +124,8 @@ Channel
     .fromPath(params.samplesheet, checkIfExists: true, type: 'file')
     .set {samplesheet_ch}
 
+
+
 //runfolder_ch.into {runfolder_interop; runfolder_bcl}
 
 process interop {
@@ -170,9 +174,7 @@ process bcl {
     -o fastq \
     --sample-sheet $y \
     --barcode-mismatches ${params.barcode_mismatches} \
-    --minimum-trimmed-read-length 8 \
-    --mask-short-adapter-reads 8 \
-    --use-bases-mask "y*,i6y*,y*" \
+    '${params.bcl2fastqParams}' \
     -r ${params.load_threads} \
     -p ${params.proc_threads} \
     -w ${params.write_threads} >bcl_out.log 2>&1
