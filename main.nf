@@ -106,7 +106,8 @@ log.info """
          --load_threads         : Number of threads used for loading BCL data. 4 by default.
          --proc_threads         : Number of threads used for processing demultiplexed data. 4 by default.
          --write_threads        : number of threads used for writing FASTQ data. ${ANSI_RED}Must not be higher than number of samples!${ANSI_RESET} 4 by default.
-         --barcode_mismatches:  : number of allowed barcode mismatches per index, 1 by default. Accepted values: 0,1,2.
+         --barcode_mismatches   : number of allowed barcode mismatches per index, 1 by default. Accepted values: 0,1,2.
+         --bcl2fastqParams      : String of variable bcl2fastq parameters, default is '--no-lane-splitting --ignore-missing-bcls'
         ===========================================
          """
          .stripIndent()
@@ -174,7 +175,7 @@ process bcl {
     -o fastq \
     --sample-sheet $y \
     --barcode-mismatches ${params.barcode_mismatches} \
-    '${params.bcl2fastqParams}' \
+    ${params.bcl2fastqParams} \
     -r ${params.load_threads} \
     -p ${params.proc_threads} \
     -w ${params.write_threads} >bcl_out.log 2>&1
